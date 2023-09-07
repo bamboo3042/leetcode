@@ -9,17 +9,12 @@
  */
 class Solution {
     fun middleNode(head: ListNode?): ListNode? {
-        var c = 0
+        val list = mutableListOf<ListNode?>()
         var temp = head
-        do {
-            c++
-            temp = temp?.next
-        } while(temp != null)
-        
-        temp = head
-        
-        repeat(c/2) { temp = temp?.next }
-        
-        return temp
+        while(temp != null) {
+            list.add(temp)
+            temp = temp.next
+        }
+        return list[list.size/2]
     }
 }
