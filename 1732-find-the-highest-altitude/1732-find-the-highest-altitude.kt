@@ -1,13 +1,11 @@
 class Solution {
     fun largestAltitude(gain: IntArray): Int {
-        var answer = 0
-        var temp = 0
+        val result = IntArray(gain.size + 1) { 0 }
         
-        gain.forEach {
-            temp += it
-            answer = maxOf(answer, temp)
+        for(i in gain.indices) {
+            result[i+1] = result[i] + gain[i]
         }
         
-        return answer
+        return result.max()
     }
 }
