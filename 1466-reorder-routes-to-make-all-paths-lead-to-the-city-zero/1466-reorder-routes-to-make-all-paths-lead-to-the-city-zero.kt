@@ -1,14 +1,14 @@
 class Solution {
     fun minReorder(n: Int, connections: Array<IntArray>): Int {
         var answer = 0
-        val road = mutableMapOf<Int, HashSet<Int>>()
-        val reversRoad = mutableMapOf<Int, HashSet<Int>>()
+        val road = mutableMapOf<Int, MutableList<Int>>()
+        val reversRoad = mutableMapOf<Int, MutableList<Int>>()
         val visited = BooleanArray(n) { false }
         val queue = ArrayDeque<Int>()
 
         repeat(n) {
-            road[it] = hashSetOf()
-            reversRoad[it] = hashSetOf()
+            road[it] = mutableListOf()
+            reversRoad[it] = mutableListOf()
         }
         connections.forEach { (a, b) ->
             road[a]!!.add(b)
