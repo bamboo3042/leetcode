@@ -4,10 +4,12 @@ class Solution {
         val dx = arrayOf(1, -1, 0, 0)
         val dy = arrayOf(0, 0, 1, -1)
         val queue = ArrayDeque<Triple<Int, Int, Int>>()
+        val list = hashSetOf<Pair<Int, Int>>()
         
         grid.forEachIndexed { i, ints -> 
             ints.forEachIndexed { j, o -> 
                 if(o == 2) queue.add(Triple(i, j, 0))
+                else if(o == 1) list.add(i to j)
             }
         }
         
@@ -20,15 +22,14 @@ class Solution {
                 val nx = x + dx[it]
                 val ny = y + dy[it]
                 
-                if(nx in grid.indices && ny in grid[0].indices && grid[nx][ny] == 1) {
-                    grid[nx][ny] = 2
+                if(nx in grid.indices && ny in grid[0].indices && list.contains(nx to ny)) {
+                    list.remove(nx to ny)
                     queue.addLast(Triple(nx, ny, d+1))
                 }
             }
         }
         
-        grid.forEach { ints -> ints.forEach { o -> if(o == 1) return -1 } }
-        
-        return result
+        return if(list.isNotEmpty()) -1 
+        else result
     }
 }
