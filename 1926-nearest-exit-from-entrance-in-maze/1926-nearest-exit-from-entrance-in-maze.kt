@@ -4,10 +4,10 @@ class Solution {
     fun nearestExit(maze: Array<CharArray>, entrance: IntArray): Int {
         val dx = arrayOf(1, -1, 0, 0)
         val dy = arrayOf(0, 0, 1, -1)
-        val queue = ArrayDeque<Triple<Int, Int, Int>>()
+        val queue = ArrayDeque<List<Int>>()
         val visited = Array(maze.size) { BooleanArray(maze[0].size) { false } }
         
-        queue.add(Triple(entrance[0], entrance[1], 0))
+        queue.add(listOf(entrance[0], entrance[1], 0))
         visited[entrance[0]][entrance[1]] = true
         
         val gx = listOf(0, maze.size - 1)
@@ -24,7 +24,7 @@ class Solution {
                     if(nx in gx || ny in gy) return d+1
                     else {
                         visited[nx][ny] = true
-                        queue.addLast(Triple(nx, ny, d+1))
+                        queue.addLast(listOf(nx, ny, d+1))
                     }
                 }
             }
