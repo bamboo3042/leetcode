@@ -9,15 +9,15 @@
 
 class Solution:GuessGame() {
     override fun guessNumber(n:Int):Int {
-        var s = 1
-        var e = n
+        var s = 1L
+        var e = n.toLong()
         var m = n/2
         var r = guess(m)
         
         while(r != 0) {
-            if(r == -1) e = m-1
-            else s = m+1
-            m = ((s.toLong() + e.toLong()) / 2).toInt()
+            if(r == -1) e = m-1L
+            else s = m+1L
+            m = ((s + e) / 2).toInt()
             r = guess(m)
         }
         
