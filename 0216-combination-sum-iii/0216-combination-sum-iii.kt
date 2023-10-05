@@ -10,7 +10,6 @@ class Solution {
     }
     
     fun dfs(k: Int, n: Int, t: Int, l: List<Int>) {
-        if(l.sum() > n) return
         if(l.size == k) {
             if(l.sum() == n) answer.add(l)
             return
