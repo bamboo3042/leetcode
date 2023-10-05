@@ -1,12 +1,14 @@
 class Solution {
     fun minCostClimbingStairs(cost: IntArray): Int {
-        val dp = IntArray(cost.size) { 0 }
-        dp[0] = cost[0]
-        dp[1] = cost[1]
+        var a = cost[0]
+        var b = cost[1]
+        
         for(i in 2 until cost.size) {
-            dp[i] = minOf(dp[i-1], dp[i-2]) + cost[i]
+            val t = cost[i] + minOf(a, b)
+            a = b
+            b = t
         }
         
-        return minOf(dp.last(), dp[dp.lastIndex-1])
+        return minOf(a, b)
     }
 }
