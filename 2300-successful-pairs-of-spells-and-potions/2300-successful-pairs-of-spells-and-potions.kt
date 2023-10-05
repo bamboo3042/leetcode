@@ -1,7 +1,6 @@
 class Solution {
     fun successfulPairs(spells: IntArray, potions: IntArray, success: Long): IntArray {
         potions.sort()
-        println(potions.joinToString(" "))
         return spells.map {
             var l = 0
             var r = potions.size
