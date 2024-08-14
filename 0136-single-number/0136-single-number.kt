@@ -1,11 +1,9 @@
 class Solution {
     fun singleNumber(nums: IntArray): Int {
-        val numSet = mutableSetOf<Int>()
+        var ans = 0
 
-        nums.forEach { n ->
-            if(numSet.contains(n)) numSet.remove(n) else numSet.add(n)
-        }
+        nums.forEach { ans = ans.xor(it) }
 
-        return numSet.first()
+        return ans
     }
 }
