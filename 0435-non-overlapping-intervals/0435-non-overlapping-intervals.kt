@@ -15,7 +15,7 @@ class Solution {
                 start = s
             }
             else {
-                start = maxOf(start, s)
+                start = start.coerceAtLeast(s)
                 answer++
             }
         }
