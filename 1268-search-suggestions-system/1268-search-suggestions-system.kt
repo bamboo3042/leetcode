@@ -1,14 +1,14 @@
 class Solution {
     fun suggestedProducts(products: Array<String>, searchWord: String): List<List<String>> {
         val trie = Trie()
-        var str = ""
+        val str = StringBuilder()
 
         products.forEach { trie.insert(it) }
 
         return searchWord.map { c ->
-            str += c
+            str.append(c)
 
-            trie.search(str)
+            trie.search(str.toString())
         }
     }
 
