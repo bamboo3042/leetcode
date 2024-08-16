@@ -1,19 +1,12 @@
 class Trie() {
-    private val head = Node(false, mutableMapOf())
+    private val head = Node()
 
     fun insert(word: String) {
         var temp = head
-        var index = 0
 
-        while (index < word.length) {
-            if (temp.child.containsKey(word[index])) {
-                temp = temp.child[word[index]]!!
-            }
-            else {
-                temp.child[word[index]] = Node(false, mutableMapOf())
-                temp = temp.child[word[index]]!!
-            }
-            index++
+        word.forEach { c ->
+            if (!temp.child.containsKey(c)) temp.child[c] = Node()
+            temp = temp.child[c]!!
         }
 
         temp.isEnd = true
@@ -21,14 +14,10 @@ class Trie() {
 
     fun search(word: String): Boolean {
         var temp = head
-        var index = 0
-
-        while (index < word.length) {
-            if (!temp.child.containsKey(word[index])) return false
-
-            temp = temp.child[word[index]]!!
-
-            index++
+        
+        word.forEach { c ->
+            if (!temp.child.containsKey(c)) return false
+            temp = temp.child[c]!!
         }
 
         return temp.isEnd
@@ -36,29 +25,17 @@ class Trie() {
 
     fun startsWith(prefix: String): Boolean {
         var temp = head
-        var index = 0
-
-        while (index < prefix.length) {
-            if (!temp.child.containsKey(prefix[index])) return false
-
-            temp = temp.child[prefix[index]]!!
-
-            index++
+        
+        prefix.forEach { c ->
+            if (!temp.child.containsKey(c)) return false
+            temp = temp.child[c]!!
         }
 
         return true
     }
 
     data class Node(
-        var isEnd: Boolean,
-        val child: MutableMap<Char, Node>
+        var isEnd: Boolean = false,
+        val child: MutableMap<Char, Node> = mutableMapOf(),
     )
 }
-
-/**
- * Your Trie object will be instantiated and called as such:
- * var obj = Trie()
- * obj.insert(word)
- * var param_2 = obj.search(word)
- * var param_3 = obj.startsWith(prefix)
- */
