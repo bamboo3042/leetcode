@@ -1,6 +1,5 @@
 class Trie() {
-
-    private val head = Node(mutableSetOf(), mutableMapOf())
+    private val head = Node(false, mutableMapOf())
 
     fun insert(word: String) {
         var temp = head
@@ -11,13 +10,13 @@ class Trie() {
                 temp = temp.child[word[index]]!!
             }
             else {
-                temp.child[word[index]] = Node(mutableSetOf(), mutableMapOf())
+                temp.child[word[index]] = Node(false, mutableMapOf())
                 temp = temp.child[word[index]]!!
             }
             index++
         }
 
-        temp.data.add(word)
+        temp.isEnd = true
     }
 
     fun search(word: String): Boolean {
@@ -32,7 +31,7 @@ class Trie() {
             index++
         }
 
-        return temp.data.contains(word)
+        return temp.isEnd
     }
 
     fun startsWith(prefix: String): Boolean {
@@ -51,7 +50,7 @@ class Trie() {
     }
 
     data class Node(
-        val data: MutableSet<String>,
+        var isEnd: Boolean,
         val child: MutableMap<Char, Node>
     )
 }
