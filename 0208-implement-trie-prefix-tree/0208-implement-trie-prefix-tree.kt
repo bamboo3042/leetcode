@@ -3,10 +3,9 @@ class Trie() {
 
     fun insert(word: String) {
         var temp = head
-
+        
         word.forEach { c ->
-            if (!temp.child.containsKey(c)) temp.child[c] = Node()
-            temp = temp.child[c]!!
+            temp = temp.createOrGetChild(c)
         }
 
         temp.isEnd = true
@@ -14,10 +13,11 @@ class Trie() {
 
     fun search(word: String): Boolean {
         var temp = head
-        
+
         word.forEach { c ->
-            if (!temp.child.containsKey(c)) return false
-            temp = temp.child[c]!!
+            temp.getChild(c)?.also { 
+                temp = it
+            } ?: return false
         }
 
         return temp.isEnd
@@ -25,10 +25,12 @@ class Trie() {
 
     fun startsWith(prefix: String): Boolean {
         var temp = head
+        var index = 0
         
         prefix.forEach { c ->
-            if (!temp.child.containsKey(c)) return false
-            temp = temp.child[c]!!
+            temp.getChild(c)?.also {
+                temp = it
+            } ?: return false
         }
 
         return true
@@ -36,6 +38,19 @@ class Trie() {
 
     data class Node(
         var isEnd: Boolean = false,
-        val child: MutableMap<Char, Node> = mutableMapOf(),
-    )
+        val child: MutableList<Node?> = MutableList(26) { null },
+    ) {
+        fun createOrGetChild(c: Char): Node {
+            val i = c.code - 97
+            if (child[i] == null) {
+                child[i] = Node()
+            }
+
+            return child[i]!!
+        }
+
+        fun getChild(c: Char): Node? {
+            return child[c.code - 97]
+        }
+    }
 }
