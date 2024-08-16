@@ -1,6 +1,6 @@
 class Trie() {
 
-    private val head = Node(null, mutableSetOf(), mutableMapOf())
+    private val head = Node(mutableSetOf(), mutableMapOf())
 
     fun insert(word: String) {
         var temp = head
@@ -11,7 +11,7 @@ class Trie() {
                 temp = temp.child[word[index]]!!
             }
             else {
-                temp.child[word[index]] = Node(word[index], mutableSetOf(), mutableMapOf())
+                temp.child[word[index]] = Node(mutableSetOf(), mutableMapOf())
                 temp = temp.child[word[index]]!!
             }
             index++
@@ -51,7 +51,6 @@ class Trie() {
     }
 
     data class Node(
-        val key: Char?,
         val data: MutableSet<String>,
         val child: MutableMap<Char, Node>
     )
